@@ -1,0 +1,10 @@
+*.aux
+*.fdb_latexmk
+*.synctex.gz
+*.log
+*.fls
+*.toc
+*.dvi
+*.out
+
+testthesis.pdf
