@@ -1,7 +1,6 @@
 \documentclass[11pt, twoside, bachelor]{bhthesis}
 
 \usepackage[ngerman, english]{babel}
-\usepackage{fullpage}
 
 \newcommand{\OEIS}[1]{\text{\href{https://oeis.org/#1}{{\small \tt (#1)}}}}
 \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
@@ -29,7 +28,7 @@
 \begin{document}
 \selectlanguage{ngerman}
 \maketitle
-  
+
 \selectlanguage{english}
 \chapter*{Abstract}
 This is a short summary of the contents of this thesis.
@@ -37,9 +36,8 @@ This is a short summary of the contents of this thesis.
 \tableofcontents
 
 \chapter{Introduction}\label{chap:intro}
-  
+
 \section{Tasty!}
-This is a very tasty section in Chapter~\ref{chap:intro}.
 
 \begin{definition}[Open Set]
   A set $\Omega\subseteq\mathbb{C}$ is said to be \emph{open}, if for every
@@ -72,13 +70,9 @@ The following example provides verification for this important result.
   \begin{align*}
     \oint_{\abs{z} = 42} f(z)~dz
     &= \int_{0}^{1} f(\gamma(t)) \gamma'(t)~dt\\
-    &= \int_{0}^{1} 42^{2} \exp(4\pi i t)\cdot 42\cdot 2\pi i
-      \exp(2\pi i t)~dt\\
-    &= 42^{3}\cdot 2\pi i \int_{0}^{1} \exp(6\pi i t)~dt\\
     &= 42^{3}\cdot 2\pi i \cdot \biggl[\frac{\exp(6 \pi i t)}{6 \pi
       i}\biggr]_{0}^{1} = 42^{3}\cdot 2\pi i\cdot \frac{1 - 1}{6\pi
-      i}\\
-    & = 0,
+      i} = 0,
   \end{align*}
   which verifies the theorem.
 \end{example}
@@ -91,6 +85,12 @@ The following example provides verification for this important result.
   and it should help to illustrate a page break.
 \end{theorem*}
 
+\section{Improvements?}
+
+Feel free to adapt / polish the styling suggested by this template
+in any way you like. This template is hosted at
+\url{https://github.com/behackl/thesis-template} -- I am happy to
+discuss ideas and suggestions for general improvement of this template.
 
 
 

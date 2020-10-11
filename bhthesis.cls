@@ -5,6 +5,7 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[charter]{mathdesign}
 \RequirePackage{graphicx}
+\RequirePackage{tikz}
 
 \RequirePackage{amsmath}
 \RequirePackage{amsfonts}
@@ -15,13 +16,28 @@
 
 \RequirePackage{mathtools}
 
+\RequirePackage{fullpage}
+\RequirePackage[Bjornstrup]{fncychap}
+\ChTitleVar{\raggedright\Huge\sffamily\bfseries}
+\ChNumVar{\fontsize{76}{80}\usefont{OT1}{pzc}{m}{n}\selectfont\color{aaudark}}
+
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={green!50!black},
+    citecolor={green!50!black},
+    urlcolor={green!50!black}
+}
+
 \definecolor{aaulight}{RGB}{70,153,194}
+\definecolor{aaudark}{RGB}{67,111,128}
 \renewenvironment{leftbar}{
   \def\FrameCommand{{\color{aaulight}\vrule width 3pt} \hspace{10pt}}
   \MakeFramed {\advance\hsize-\width \FrameRestore}}{\endMakeFramed}
 
 \declaretheoremstyle[spaceabove=5pt, spacebelow=5pt,
- preheadhook=\begin{leftbar}, postfoothook=\end{leftbar}]{bhresult}
+  headfont={\sffamily\bfseries},
+  preheadhook=\begin{leftbar}, postfoothook=\end{leftbar}]{bhresult}
 
 \declaretheorem[style=bhresult, name=Theorem]{theorem}
 \declaretheorem[style=bhresult, name=Theorem, numbered=no]{theorem*}
@@ -34,7 +50,7 @@
 
 
 \declaretheoremstyle[spaceabove=6pt, spacebelow=10pt,
-  headfont={\textcolor{aaulight}{$\blacktriangleright$}~\normalfont\itshape},
+  headfont={\textcolor{aaulight}{$\blacktriangleright$}\ \sffamily},
   prefoothook={\textcolor{aaulight}{$\blacktriangleleft$}}]{bhremark}
 \declaretheorem[style=bhremark, name=Definition, sibling=theorem]{definition}
 \declaretheorem[style=bhremark, name=Definition, numbered=no]{definition*}
@@ -203,8 +219,8 @@
       \end{minipage}
     \end{center}
     \fi
-    
-    
+
+
     \vfill
     \fontsize{12}{12}\selectfont
     \hfill \@city, \@date
