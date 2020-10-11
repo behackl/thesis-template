@@ -58,24 +58,14 @@
 \declaretheorem[style=bhremark, name=Observation, numbered=no]{observation}
 \declaretheorem[style=bhremark, name=Example, numbered=no]{example}
 
-\newif\if@bachelor
-\newif\if@master
-\newif\if@diss
+\newif\if@english\@englishfalse
+\newif\if@withdegree\@withdegreefalse
 
-\DeclareOption{bachelor}{
-  \@bachelortrue
-  \@masterfalse
-  \@dissfalse
+\DeclareOption{english}{
+  \@englishtrue
 }
-\DeclareOption{master}{
-  \@bachelorfalse
-  \@mastertrue
-  \@dissfalse
-}
-\DeclareOption{diss}{
-  \@bachelorfalse
-  \@masterfalse
-  \@disstrue
+\DeclareOption{withdegree}{
+  \@withdegreetrue
 }
 \ProcessOptions
 
@@ -83,6 +73,15 @@
 % Data to appear on the title page
 % \author and \title are defined by the latex kernel
 %
+\newcommand{\person}[4][]{
+  \begin{minipage}[t]{#2}
+    #1\fontsize{14}{18}\selectfont
+    {\textsc{#3}}\\
+    \fontsize{12}{14}\selectfont
+    #4
+  \end{minipage}
+}
+
 \gdef\@authorname{}
 \gdef\@authornameone{}
 \gdef\@authornamemore{}
@@ -102,17 +101,13 @@
 \newcommand \fakultaetname[1]{\gdef \@fakultaetname{#1}}
 \gdef\@studname{}
 \newcommand \studname[1]{\gdef \@studname{#1}}
-\gdef\@grade{}
-\newcommand \grade[1]{\gdef \@grade{#1}}
+\gdef\@degree{{\bfseries\color{red} degree}}
+\newcommand \degree[1]{\gdef \@degree{#1}}
 \renewcommand{\and}{$\;\cdot\;$}
 \gdef\@institute{}
 \newcommand \institute[1]{\gdef \@institute{#1}}
-\gdef\@researchgroup{}
-\newcommand \researchgroup[1]{\gdef \@researchgroup{#1}}
-\gdef\@advisor{}
-\newcommand \advisor[1]{\gdef \@advisor{#1}}
-\gdef\@firstreviewer{}
-\newcommand\firstreviewer[1]{\gdef\@firstreviewer{#1}}
+\gdef\@involvedpeople{}
+\newcommand \involvedpeople[1]{\gdef \@involvedpeople{#1}}
 \gdef\@city{Klagenfurt}
 \newcommand \city[1]{\gdef \@city{#1}}
 \renewcommand*{\next@tpage}{\clearpage\thispagestyle{empty}}
@@ -158,67 +153,22 @@
     \vskip 2em
     {\huge\textsc{\@reporttype}}
     \vskip 1em
-    \if@bachelor\else
-    zur Erlangung des akademischen Grades \\
-    \@grade
-    \fi
+    \if@withdegree
+      \if@english
+        submitted in fulfilment of the requirements for the degree of \\[0.5em]
+      \else
+        zur Erlangung des akademischen Grades \\[0.5em]
+      \fi
+      \@degree
+    \else\fi
     \vfill
-    {\textsc{Studium}}\\[0.25em]
+    {\textsc{\if@english Degree Programme\else Studium\fi}}\\[0.25em]
     {\Large\@studname}
     \vfill
     \@universityname \\[0.2em]
     \@fakultaetname
     \vfill
-    \if@bachelor
-      \begin{minipage}[t]{0.42\linewidth}
-        \fontsize{14}{18}\selectfont
-        {\textsc{Betreuer}}\\
-        \fontsize{12}{14}\selectfont
-        \@advisor
-      \end{minipage}\hfill\,
-    \fi
-    \if@master
-    \begin{center}
-      \begin{minipage}[t]{0.42\linewidth}
-        \fontsize{14}{18}\selectfont
-        {\textsc{Betreuer}}\\
-        \fontsize{12}{14}\selectfont
-        \@advisor
-      \end{minipage}
-      \hfill
-      \begin{minipage}[t]{0.47\linewidth}
-        \flushright\fontsize{14}{18}\selectfont
-        {\textsc{Gutachter}}\\
-        \fontsize{12}{14}\selectfont
-        \@firstreviewer
-      \end{minipage}\\[2em]
-      \hfill
-    \end{center}
-    \fi
-    \if@diss
-    \begin{center}
-      \begin{minipage}[t]{0.42\linewidth}
-        \fontsize{14}{18}\selectfont
-        {\textsc{Betreuer}}\\
-        \fontsize{13}{13}\selectfont
-        \@advisor
-      \end{minipage}
-      \hfill
-      \begin{minipage}[t]{0.47\linewidth}
-        \flushright\fontsize{14}{18}\selectfont
-        {\textsc{Erstgutachter}}\\
-        \fontsize{13}{13}\selectfont
-        \@firstreviewer
-      \end{minipage}\\[2em]
-      \hfill
-      \begin{minipage}[t]{0.47\linewidth}
-        \flushright\fontsize{14}{18}\selectfont
-        {\textsc{Zweitgutachter}}\\
-        \fontsize{13}{13}\selectfont
-        \@firstreviewer
-      \end{minipage}
-    \end{center}
-    \fi
+    \@involvedpeople
 
 
     \vfill
@@ -256,8 +206,6 @@
     \global\let\@reporttype\@empty
     \global\let\@university\@empty
     \global\let\@institute\@empty
-    \global\let\@researchgroup\@empty
-    \global\let\@advisor\@empty
     \global\let\@city\@empty
     \global\let\@version\@empty
     \global\let\@uppertitleback\@empty
@@ -270,8 +218,6 @@
     \global\let\university\@empty
     \global\let\universityname\@empty
     \global\let\institute\@empty
-    \global\let\researchgroup\@empty
-    \global\let\advisor\@empty
     \global\let\city\@empty
     \global\let\version\@empty
     \global\let\and\relax}
@@ -310,8 +256,6 @@
        \global\let\@reporttype\@empty
        \global\let\@university\@empty
        \global\let\@institute\@empty
-       \global\let\@researchgroup\@empty
-       \global\let\@advisor\@empty
        \global\let\@city\@empty
        \global\let\@version\@empty
        \global\let\@uppertitleback\@empty
@@ -323,8 +267,6 @@
        \global\let\reporttype\@empty
        \global\let\university\@empty
        \global\let\institute\@empty
-       \global\let\researchgroup\@empty
-       \global\let\advisor\@empty
        \global\let\city\@empty
        \global\let\version\@empty
        \global\let\and\relax}
