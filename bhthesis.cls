@@ -13,13 +13,15 @@
 \RequirePackage{thmtools}
 \RequirePackage{framed}
 \RequirePackage{xcolor}
+\RequirePackage{wasysym}
+\RequirePackage{soul}
 
 \RequirePackage{mathtools}
 
 \RequirePackage{fullpage}
 \RequirePackage[Bjornstrup]{fncychap}
 \ChTitleVar{\raggedright\Huge\sffamily\bfseries}
-\ChNumVar{\fontsize{76}{80}\usefont{OT1}{pzc}{m}{n}\selectfont\color{aaudark}}
+\ChNumVar{\fontsize{76}{80}\usefont{OT1}{pzc}{m}{n}\selectfont\color{tugred}}
 
 \RequirePackage{hyperref}
 \hypersetup{
@@ -31,13 +33,15 @@
 
 \definecolor{aaulight}{RGB}{70,153,194}
 \definecolor{aaudark}{RGB}{67,111,128}
+\definecolor{kfuyellow}{RGB}{255, 204, 0}
+\definecolor{kfuyellowlight}{RGB}{254, 250, 226}
+\definecolor{tugred}{RGB}{238,37,86}
 \renewenvironment{leftbar}{
-  \def\FrameCommand{{\color{aaulight}\vrule width 3pt} \hspace{10pt}}
+  \def\FrameCommand{{\color{kfuyellow}\vrule width 3pt} \hspace{4pt}}
   \MakeFramed {\advance\hsize-\width \FrameRestore}}{\endMakeFramed}
 
 \declaretheoremstyle[spaceabove=5pt, spacebelow=5pt,
-  headfont={\sffamily\bfseries},
-  preheadhook=\begin{leftbar}, postfoothook=\end{leftbar}]{bhresult}
+  headfont={\sffamily\bfseries}, shaded={bgcolor=kfuyellowlight, margin=10pt}]{bhresult}
 
 \declaretheorem[style=bhresult, name=Theorem]{theorem}
 \declaretheorem[style=bhresult, name=Theorem, numbered=no]{theorem*}
@@ -50,13 +54,15 @@
 
 
 \declaretheoremstyle[spaceabove=6pt, spacebelow=10pt,
-  headfont={\textcolor{aaulight}{$\blacktriangleright$}\ \sffamily},
-  prefoothook={\textcolor{aaulight}{$\blacktriangleleft$}}]{bhremark}
+  preheadhook=\begin{leftbar}, postfoothook=\end{leftbar},
+  headfont={\sffamily}]{bhremark}
 \declaretheorem[style=bhremark, name=Definition, sibling=theorem]{definition}
 \declaretheorem[style=bhremark, name=Definition, numbered=no]{definition*}
 \declaretheorem[style=bhremark, name=Remark, numbered=no]{remark}
 \declaretheorem[style=bhremark, name=Observation, numbered=no]{observation}
-\declaretheorem[style=bhremark, name=Example, numbered=no]{example}
+
+\declaretheoremstyle[headfont={\sffamily}, headformat={\setul{-1pt}{3pt}\setulcolor{kfuyellow}\ul{\mbox{\NAME}}}, qed={\pentagon}]{bhexample}
+\declaretheorem[style=bhexample, name=Example, numbered=no]{example}
 
 \newif\if@english\@englishfalse
 \newif\if@withdegree\@withdegreefalse
@@ -73,12 +79,14 @@
 % Data to appear on the title page
 % \author and \title are defined by the latex kernel
 %
-\newcommand{\person}[4][]{
+\newcommand{\person}[5][]{
   \begin{minipage}[t]{#2}
     #1\fontsize{14}{18}\selectfont
-    {\textsc{#3}}\\
-    \fontsize{12}{14}\selectfont
-    #4
+    {\textsc{#3}}\\[0.25em]
+    \fontsize{12}{16}\selectfont
+    #4\\
+    \fontsize{10}{14}\selectfont
+    #5
   \end{minipage}
 }
 
@@ -108,7 +116,7 @@
 \newcommand \institute[1]{\gdef \@institute{#1}}
 \gdef\@involvedpeople{}
 \newcommand \involvedpeople[1]{\gdef \@involvedpeople{#1}}
-\gdef\@city{Klagenfurt}
+\gdef\@city{Graz}
 \newcommand \city[1]{\gdef \@city{#1}}
 \renewcommand*{\next@tpage}{\clearpage\thispagestyle{empty}}
 
@@ -150,7 +158,7 @@
         \@title
       \end{tabular}\par}%
     \HRule\par
-    \vskip 2em
+    \vfill
     {\huge\textsc{\@reporttype}}
     \vskip 1em
     \if@withdegree
