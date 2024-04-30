@@ -33,7 +33,7 @@
     thesisperson(
       role: "Examiner",
       name: "Univ.-Prof. Dr. Alexandra Musterfrau",
-      affiliation: [Department of Discrete Mathematics \ Technical University of Graz]
+      affiliation: [Department of Discrete Mathematics \ Graz University of Technology]
     ),
   ), */
   doc
