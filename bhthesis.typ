@@ -1,5 +1,5 @@
-#import "@preview/ctheorems:1.1.2": thmrules, thmplain, thmbox, thmproof
-#import "@preview/hydra:0.3.0": hydra
+#import "@preview/ctheorems:1.1.3": thmrules, thmplain, thmbox, thmproof
+#import "@preview/hydra:0.6.2": hydra
 
 #let kfuyellow = rgb("#ffcc00")
 #let kfuyellowlight = rgb("#fff9e0")
@@ -87,7 +87,7 @@
     align: (left + horizon, center + horizon, right + horizon),
     image("assets/logo_tugraz.svg", height: 1.55cm),
     image("assets/logo_nawigraz.png", height: 1cm),
-    image("assets/logo_kfumath.png", height: 1.55cm)
+    image("assets/logo_kfumath.png", height: 1.45cm)
   )
   v(1cm)
 
@@ -148,15 +148,15 @@
   )
   set page(
     paper: "a4",
-    header: locate(loc => {
-      if counter(page).at(loc).first() > 2 {
+    header: context {
+      if counter(page).at(here()).first() > 2 {
         emph(running_title)
         h(1fr)
         emph(hydra())
-        v(-0.35em)
+        v(-0.5em)
         line(length: 100%)
       }
-    }),
+    },
   )
   
   set heading(numbering: "1.1")
