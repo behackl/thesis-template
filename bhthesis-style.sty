@@ -11,7 +11,7 @@
 \RequirePackage{amsfonts}
 \RequirePackage{amsthm}
 \RequirePackage{thmtools}
-\RequirePackage{framed}
+\RequirePackage[framemethod=tikz]{mdframed}
 \RequirePackage{xcolor}
 \RequirePackage{wasysym}
 \RequirePackage{soul}
@@ -38,36 +38,73 @@
 \definecolor{kfuyellowlight}{RGB}{254, 250, 226}
 \definecolor{tugred}{RGB}{238,37,86}
 
-\renewenvironment{leftbar}{
-  \def\FrameCommand{{\color{kfuyellow}\vrule width 3pt} \hspace{4pt}}
-  \MakeFramed {\advance\hsize-\width \FrameRestore}}{\endMakeFramed}
+\newlength{\bhtheorempadding}
+\setlength{\bhtheorempadding}{10pt}
+
+\makeatletter
+
+% Localized theorem names
+\newcommand{\bh@selectlanguage}[2]{%
+  \ifcsname iflanguage\endcsname
+    \iflanguage{english}{#1}{#2}%
+  \else
+    \if@english #1\else #2\fi
+  \fi
+}
+\newcommand{\bh@name@theorem}{\bh@selectlanguage{Theorem}{Satz}}
+\newcommand{\bh@name@proposition}{\bh@selectlanguage{Proposition}{Proposition}}
+\newcommand{\bh@name@lemma}{\bh@selectlanguage{Lemma}{Lemma}}
+\newcommand{\bh@name@corollary}{\bh@selectlanguage{Corollary}{Korollar}}
+\newcommand{\bh@name@definition}{\bh@selectlanguage{Definition}{Definition}}
+\newcommand{\bh@name@remark}{\bh@selectlanguage{Remark}{Bemerkung}}
+\newcommand{\bh@name@observation}{\bh@selectlanguage{Observation}{Beobachtung}}
+\newcommand{\bh@name@example}{\bh@selectlanguage{Example}{Beispiel}}
 
 % Theorem styles
 \declaretheoremstyle[spaceabove=5pt, spacebelow=5pt,
-  headfont={\sffamily\bfseries}, shaded={bgcolor=kfuyellowlight, margin=10pt}]{bhresult}
+  headfont={\sffamily\bfseries},
+  shaded={
+    bgcolor=kfuyellowlight,
+    margin=\bhtheorempadding,
+    textwidth=\dimexpr\linewidth-2\bhtheorempadding\relax,
+  },
+]{bhresult}
 
-\declaretheorem[style=bhresult, name=Theorem]{theorem}
-\declaretheorem[style=bhresult, name=Theorem, numbered=no]{theorem*}
-\declaretheorem[style=bhresult, name=Proposition, sibling=theorem]{proposition}
-\declaretheorem[style=bhresult, name=Proposition, numbered=no]{proposition*}
-\declaretheorem[style=bhresult, name=Lemma, sibling=theorem]{lemma}
-\declaretheorem[style=bhresult, name=Lemma, numbered=no]{lemma*}
-\declaretheorem[style=bhresult, name=Corollary, sibling=theorem]{corollary}
-\declaretheorem[style=bhresult, name=Corollary, numbered=no]{corollary*}
+\declaretheorem[style=bhresult, name=\bh@name@theorem]{theorem}
+\declaretheorem[style=bhresult, name=\bh@name@theorem, numbered=no]{theorem*}
+\declaretheorem[style=bhresult, name=\bh@name@proposition, sibling=theorem]{proposition}
+\declaretheorem[style=bhresult, name=\bh@name@proposition, numbered=no]{proposition*}
+\declaretheorem[style=bhresult, name=\bh@name@lemma, sibling=theorem]{lemma}
+\declaretheorem[style=bhresult, name=\bh@name@lemma, numbered=no]{lemma*}
+\declaretheorem[style=bhresult, name=\bh@name@corollary, sibling=theorem]{corollary}
+\declaretheorem[style=bhresult, name=\bh@name@corollary, numbered=no]{corollary*}
 
 
-\declaretheoremstyle[spaceabove=6pt, spacebelow=10pt,
-  preheadhook=\begin{leftbar}, postfoothook=\end{leftbar},
-  headfont={\sffamily}]{bhremark}
-\declaretheorem[style=bhremark, name=Definition, sibling=theorem]{definition}
-\declaretheorem[style=bhremark, name=Definition, numbered=no]{definition*}
-\declaretheorem[style=bhremark, name=Remark, numbered=no]{remark}
-\declaretheorem[style=bhremark, name=Observation, numbered=no]{observation}
+\declaretheoremstyle[spaceabove=0pt, spacebelow=0pt,
+  headfont={\sffamily},
+  mdframed={
+    linecolor=kfuyellow,
+    linewidth=1pt,
+    roundcorner=5pt,
+    innerleftmargin=1.35em,
+    innerrightmargin=0.75em,
+    innertopmargin=1em,
+    innerbottommargin=1em,
+    skipabove=0pt,
+    skipbelow=0pt,
+    extra={\begin{scope}
+      \path[clip, mdfcorners] (O)--(O|-P)--(P)--(P|-O)--cycle;
+      \path[fill=kfuyellow,draw=none] (O) rectangle ++(0.6em,\mdfboundingboxheight);
+    \end{scope}}
+  }]{bhdefinition}
+\declaretheorem[style=bhdefinition, name=\bh@name@definition, sibling=theorem]{definition}
+\declaretheorem[style=bhdefinition, name=\bh@name@definition, numbered=no]{definition*}
 
-\declaretheoremstyle[headfont={\sffamily}, headformat={\setul{-1pt}{3pt}\setulcolor{kfuyellow}\ul{\mbox{\NAME}}}, qed={\pentagon}]{bhexample}
-\declaretheorem[style=bhexample, name=Example, numbered=no]{example}
+\declaretheoremstyle[headfont={\sffamily}, headformat={\setul{-1pt}{3pt}\setulcolor{kfuyellow}\ul{\mbox{\NAME}}}]{bhplain}
+\declaretheorem[style=bhplain, name=\bh@name@example, numbered=no, qed={\pentagon}]{example}
+\declaretheorem[style=bhplain, name=\bh@name@remark, numbered=no]{remark}
+\declaretheorem[style=bhplain, name=\bh@name@observation, numbered=no]{observation}
 
-\makeatletter
 
 % Data to appear on the title page
 % \author and \title are defined by the latex kernel

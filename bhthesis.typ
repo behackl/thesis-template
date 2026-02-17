@@ -4,11 +4,15 @@
 #let kfuyellow = rgb("#ffcc00")
 #let kfuyellowlight = rgb("#fff9e0")
 
-#let theorem = thmbox("theorem", "Theorem", breakable: true, fill: kfuyellowlight, radius: 2pt, base_level: 1)
-#let proposition = thmbox("theorem", "Proposition", breakable: true, fill: kfuyellowlight, radius: 2pt, base_level: 1)
+#let bhlang = (en, de) => context {
+  if text.lang == "de" { de } else { en }
+}
+
+#let theorem = thmbox("theorem", bhlang("Theorem", "Satz"), breakable: true, fill: kfuyellowlight, radius: 2pt, base_level: 1)
+#let proposition = thmbox("theorem", bhlang("Proposition", "Proposition"), breakable: true, fill: kfuyellowlight, radius: 2pt, base_level: 1)
 #let corollary = thmbox(
   "theorem",
-  "Corollary",
+  bhlang("Corollary", "Korollar"),
   breakable: true,
   fill: kfuyellowlight,
   base: "theorem",
@@ -16,38 +20,42 @@
 )
 #let lemma = thmplain(
   "theorem",
-  "Lemma",
+  bhlang("Lemma", "Lemma"),
   base: "theorem",
   base_level: 1,
 )
-#let proof = thmproof("theorem", "Proof")
+#let proof = thmproof("theorem", bhlang("Proof", "Beweis"))
 
 #let definition = thmbox(
   "theorem",
-  "Definition",
-  inset: (x: 0.5em, top: 0.5em, bottom: 0.5em),
-  radius: 0pt,
+  bhlang("Definition", "Definition"),
+  breakable: true,
+  inset: (x: 0.75em, top: 1em, bottom: 1em),
+  radius: 5pt,
   stroke: (
-    left: (thickness: 0.25em, paint: kfuyellow),
+    top: (thickness: 1pt, paint: kfuyellow),
+    bottom: (thickness: 1pt, paint: kfuyellow),
+    right: (thickness: 1pt, paint: kfuyellow),
+    left: (thickness: 0.6em, paint: kfuyellow),
   ),
   base_level: 1,
 )
 
 #let remark = thmplain(
   "theorem",
-  "Remark",
+  bhlang("Remark", "Bemerkung"),
   inset: (x: 0pt),
   base_level: 1,
 )
 #let notation = thmplain(
   "theorem",
-  "Notation",
+  bhlang("Notation", "Notation"),
   inset: (x: 0pt),
   base_level: 1,
 )
 #let example = thmplain(
   "theorem",
-  "Example",
+  bhlang("Example", "Beispiel"),
   inset: (x: 0pt),
   bodyfmt: body => [
     #body #h(1fr) $penta.stroked$
