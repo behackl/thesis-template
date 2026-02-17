@@ -16,15 +16,16 @@ Ein Beispieldokument ist in `thesis_template_typst.typ` zu finden.
 
 ### Optionen
 
-- Wird `text.lang` auf `"de"` gesetzt wird aktuell nur Text auf der
-  Titelseite angepasst; mathematische Satz- und Definitionsumgebungen
-  müssen selbst angepasst werden.
+- Wird `text.lang` auf `"de"` gesetzt, werden die Titel der Satz- und
+  Definitionsumgebungen (z.B. "Satz", "Beispiel") sowie die
+  Titelseiten-Textbausteine auf Deutsch umgestellt.
 
 
 ## LaTeX: `bhthesis.cls`
 
-Stellt die LaTeX-Klasse `bhthesis` zur Verfügung. Siehe `thesis_template_latex.tex`
-für ein Beispieldokument.
+Stellt die LaTeX-Klasse `bhthesis` zur Verfügung (Styling in
+`bhthesis-style.sty`). Siehe `thesis_template_latex.tex` für ein
+Beispieldokument.
 
 
 ### Unterstützte Flags
@@ -33,4 +34,11 @@ für ein Beispieldokument.
   eingeblendet wird. (Wird für Bachelorarbeiten nicht benötigt.)
 
 - `english`: Kontrolliert, ob die eingebauten Textbausteine auf Englisch
-  eingebunden werden (alternativ, wenn nicht gesetzt: auf Deutsch).
+  eingebunden werden (alternativ, wenn nicht gesetzt: auf Deutsch). Zusätzlich
+  werden die Namen von Satz- und Definitionsumgebungen lokalisiert, sofern
+  `babel` nicht bereits eine Sprache vorgibt.
+
+### Styling-Anpassungen
+
+- Die Innenabstände der schattierten Satzumgebungen lassen sich über
+  `\setlength{\bhtheorempadding}{<Länge>}` steuern.
