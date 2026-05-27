@@ -21,6 +21,10 @@ latexmk -pdf thesis_template_latex.tex
 Für eine eigene Arbeit kopiere den Ordner `latex/` inklusive `assets/` in dein
 Projekt und passe die Metadaten am Anfang von `thesis_template_latex.tex` an.
 
+Das Beispieldokument zeigt außerdem, wie Satzumgebungen, Quellcode-Listings und
+Literaturverweise mit BibTeX verwendet werden. Die Datei `references.bib` enthält
+einen Beispiel-Eintrag.
+
 Die Klasse `bhthesis.cls` stellt u.a. folgende Befehle bereit:
 
 - `\reporttype{...}`
@@ -38,6 +42,22 @@ Die Klasse `bhthesis.cls` stellt u.a. folgende Befehle bereit:
   ein. Für Bachelorarbeiten wird dieser Block oft nicht benötigt.
 - `english`: verwendet englische eingebaute Textbausteine. Theoremnamen werden
   außerdem lokalisiert, sofern `babel` nicht bereits eine Sprache vorgibt.
+
+### Quellcode und Literatur
+
+Für Quellcode lädt die Klasse das Paket `listings` und definiert einen passenden
+Standardstil. Inline-Code kann mit `\code{...}` gesetzt werden, längere
+Codeblöcke mit der Umgebung `lstlisting`.
+
+Literatur wird im Beispiel klassisch mit BibTeX eingebunden:
+
+```tex
+\bibliographystyle{alpha}
+\bibliography{references}
+```
+
+`latexmk -pdf thesis_template_latex.tex` führt die nötigen BibTeX-Läufe
+automatisch aus.
 
 ### Styling-Anpassungen
 
@@ -70,6 +90,10 @@ Projekt und passe die Metadaten im `#show: doc => thesistemplate(...)`-Block von
 Wird `text.lang` auf `"de"` gesetzt, werden Satz- und Definitionsumgebungen
 sowie Titelseiten-Textbausteine auf Deutsch umgestellt.
 
+Das Beispieldokument zeigt außerdem Typst-Codeblöcke mit hellgrauem Hintergrund
+sowie Literaturverweise über `#bibliography("references.bib")`. Die Datei
+`references.bib` enthält einen Beispiel-Eintrag.
+
 Wichtige optionale Argumente von `thesistemplate`:
 
 - `running_title: none`
@@ -89,6 +113,6 @@ Für Studierende sollen Releases zwei fertige ZIP-Dateien bereitstellen:
 - `bhthesis-typst-template.zip`
 
 Diese ZIPs enthalten jeweils eine selbständige Vorlage mit kopiertem `assets/`-
-Ordner statt Symlinks. Die Erstellung übernimmt die GitHub-Actions-Workflowdatei
+Ordner statt Symlinks und der jeweiligen `references.bib`. Die Erstellung übernimmt die GitHub-Actions-Workflowdatei
 `.github/workflows/release.yml` bei Tags/Releases oder manuell via
 `workflow_dispatch`.
