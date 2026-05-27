@@ -100,6 +100,27 @@ The following example provides verification for this important result.
   and it should help to illustrate a page break.
 \end{theorem*}
 
+\section{Including source code}
+
+The template includes basic support for source-code listings. Inline code such
+as \code{gcd(2024, 71)} can be typeset with \verb|\code|, and longer SageMath or
+Python snippets can be included using the \texttt{lstlisting} environment.
+
+\begin{lstlisting}[caption={Euclid's algorithm in Sage/Python.}, label={lst:gcd}]
+def gcd(a: Integer, b: Integer) -> Integer:
+    a = abs(a)
+    b = abs(b)
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+sage: gcd(2024, 71)
+1
+\end{lstlisting}
+
+Listing~\ref{lst:gcd} computes the greatest common divisor by repeated division
+with remainder.
+
 \section{Improvements?}
 
 Feel free to adapt / polish the styling suggested by this template

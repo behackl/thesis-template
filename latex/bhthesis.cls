@@ -28,6 +28,7 @@
 \RequirePackage{xcolor}
 \RequirePackage{wasysym}
 \RequirePackage{soul}
+\RequirePackage{listings}
 
 \RequirePackage{mathtools}
 
@@ -50,6 +51,35 @@
 \definecolor{kfuyellow}{RGB}{255, 204, 0}
 \definecolor{kfuyellowlight}{RGB}{254, 250, 226}
 \definecolor{tugred}{RGB}{238,37,86}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{sageblue}{RGB}{94,94,255}
+\definecolor{backcolour}{rgb}{0.98,0.98,0.96}
+
+\lstdefinestyle{bhthesis}{
+  frame=tb,
+  language=Python,
+  keywordstyle=\color{magenta},
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codegreen},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2,
+  upquote=true,
+  emph={sage},
+  emphstyle={\color{sageblue}},
+}
+\lstset{style=bhthesis}
+\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
 
 \newlength{\bhtheorempadding}
 \setlength{\bhtheorempadding}{10pt}

@@ -96,6 +96,28 @@ function.
 
 #lorem(100)
 
+== Including source code
+
+Typst supports source-code blocks out of the box. Inline code such as
+`gcd(2024, 71)` can be written with backticks, and longer SageMath or Python
+snippets can be written as fenced code blocks.
+
+```py
+# Euclid's algorithm in Sage/Python.
+def gcd(a: Integer, b: Integer) -> Integer:
+    a = abs(a)
+    b = abs(b)
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+sage: gcd(2024, 71)
+1
+```
+
+The algorithm repeatedly replaces the pair $(a, b)$ by $(b, a mod b)$ until the
+second component vanishes.
+
 == Improvements?
 
 Feel free to adapt / polish the styling suggested by this template

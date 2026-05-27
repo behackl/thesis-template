@@ -214,6 +214,17 @@
       align(center, box(align(left, [#emph([#it.supplement #context it.counter.display(it.numbering):]) #it.body])))
     )
   }
+  show raw.where(block: true): it => {
+    block(
+      width: 100%,
+      fill: luma(245),
+      stroke: 0.5pt + luma(220),
+      radius: 3pt,
+      inset: 0.8em,
+      breakable: true,
+      it,
+    )
+  }
   show link: it => { text(fill: color.olive, it) }
   show ref: it => {
     let eq = math.equation
