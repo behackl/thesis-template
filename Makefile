@@ -14,9 +14,9 @@ clean:
 package:
 	rm -rf dist
 	mkdir -p dist/bhthesis-latex-template dist/bhthesis-typst-template
-	cp latex/bhthesis.cls latex/thesis_template_latex.tex dist/bhthesis-latex-template/
+	cp latex/bhthesis.cls latex/thesis_template_latex.tex latex/references.bib dist/bhthesis-latex-template/
 	cp -R assets dist/bhthesis-latex-template/assets
-	cp typst/bhthesis.typ typst/thesis_template_typst.typ dist/bhthesis-typst-template/
+	cp typst/bhthesis.typ typst/thesis_template_typst.typ typst/references.bib dist/bhthesis-typst-template/
 	cp -R assets dist/bhthesis-typst-template/assets
 	cd dist && zip -r bhthesis-latex-template.zip bhthesis-latex-template
 	cd dist && zip -r bhthesis-typst-template.zip bhthesis-typst-template

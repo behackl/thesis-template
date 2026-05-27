@@ -6,6 +6,8 @@
 *.toc
 *.dvi
 *.out
+*.bbl
+*.blg
 
 thesis_template_latex.pdf
 latex/thesis_template_latex.pdf

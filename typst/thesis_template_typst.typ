@@ -76,7 +76,8 @@ This is a short summary of the contents of the thesis.
 ] <thm:cauchy-integral-theorem>
 
 The following example verifies @thm:cauchy-integral-theorem for a given
-function.
+function. For background on generating functions and related analytic methods,
+see the classic reference by Flajolet and Sedgewick @flajolet_sedgewick_2009.
 
 #example[
   Consider $f: CC -> CC$ with $z |-> z^2$. Then, by @thm:cauchy-integral-theorem
@@ -124,3 +125,5 @@ Feel free to adapt / polish the styling suggested by this template
 in any way you like. This template is hosted at
 https://github.com/behackl/thesis-template -- I am happy to
 discuss ideas and suggestions for general improvement of this template.
+
+#bibliography("references.bib")
