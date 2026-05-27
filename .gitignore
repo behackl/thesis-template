@@ -8,3 +8,6 @@
 *.out
 
 thesis_template_latex.pdf
+latex/thesis_template_latex.pdf
+typst/thesis_template_typst.pdf
+dist/

@@ -81,13 +81,15 @@
 }
 
 #let thesistitlepage = (
-  title: str,
+  title: content,
   thesis_type: str,
   author: str,
-  academic_degree: str,
-  study_program: str,
-  university: str,
-  people: array,
+  academic_degree: none,
+  study_program: none,
+  university: none,
+  people: (),
+  city: "Graz",
+  date: datetime.today(),
   ) => {
   grid(
     columns: 3,
@@ -111,29 +113,37 @@
   line(length: 100%, stroke: 2pt)
   v(1cm)
   align(center, smallcaps(text(22pt, thesis_type)))
-  context {
-    if text.lang == "de" {
-      align(center, text("zur Erlangung des akademischen Grades"))
-    } else {
-      align(center, text("in fulfillment of the requirements for the academic degree"))
+  if academic_degree != none {
+    context {
+      if text.lang == "de" {
+        align(center, text("zur Erlangung des akademischen Grades"))
+      } else {
+        align(center, text("in fulfillment of the requirements for the academic degree"))
+      }
     }
+    align(center, text(size: 16pt, academic_degree))
   }
-  align(center, text(size: 16pt, academic_degree))
-  context {
-    if text.lang == "de" {
-      align(center, text("im Rahmen des Studienprogramms"))
-    } else {
-      align(center, text("within the study degree program"))
+  if study_program != none {
+    context {
+      if text.lang == "de" {
+        align(center, text("im Rahmen des Studienprogramms"))
+      } else {
+        align(center, text("within the study degree program"))
+      }
     }
+    align(center, text(size: 16pt, study_program))
   }
-  align(center, text(size: 16pt, study_program))
-  v(1.5cm)
-  align(center, text(size: 14pt, university))
-  v(1.5cm)
-  grid(columns: 2, column-gutter: 1fr, align: (left, right), ..people)
+  if university != none {
+    v(1.5cm)
+    align(center, text(size: 14pt, university))
+  }
+  if people.len() > 0 {
+    v(1.5cm)
+    grid(columns: 2, column-gutter: 1fr, align: (left, right), ..people)
+  }
   v(1fr)
   align(right, 
-    text(12pt, [Graz, #datetime.today().display("[day].[month].[year]")])
+    text(12pt, [#city, #date.display("[day].[month].[year]")])
   )
   pagebreak()
   pagebreak()
@@ -141,13 +151,15 @@
 
 #let thesistemplate = (
   title: content,
-  running_title: str,
-  thesis_type: str,
   author: str,
-  study_program: str,
-  academic_degree: str,
-  university: str,
-  people: array,
+  running_title: none,
+  thesis_type: "Master's Thesis",
+  study_program: none,
+  academic_degree: none,
+  university: none,
+  people: (),
+  city: "Graz",
+  date: datetime.today(),
   doc
 ) => {
   set document(
@@ -158,7 +170,9 @@
     paper: "a4",
     header: context {
       if counter(page).at(here()).first() > 2 {
-        emph(running_title)
+        if running_title != none {
+          emph(running_title)
+        }
         h(1fr)
         emph(hydra())
         v(-0.5em)
@@ -218,7 +232,17 @@
     }
   }
   
-  thesistitlepage(title: title, thesis_type: thesis_type, author: author, study_program: study_program, academic_degree: academic_degree, university: university, people: people)
+  thesistitlepage(
+    title: title,
+    thesis_type: thesis_type,
+    author: author,
+    study_program: study_program,
+    academic_degree: academic_degree,
+    university: university,
+    people: people,
+    city: city,
+    date: date,
+  )
   set page(numbering: "1")
 
   doc

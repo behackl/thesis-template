@@ -1,44 +1,94 @@
 # Templates für Abschlussarbeiten
 
-Hier werden LaTeX- und Typst-Vorlagen für akademische
-Abschlussarbeiten (und dabei insbesondere im 
-Rahmen vom [NAWI-Verband](https://www.nawigraz.at)
-in Graz) bereitgestellt.
+LaTeX- und Typst-Vorlagen für akademische Abschlussarbeiten, insbesondere im
+Rahmen vom [NAWI-Verband](https://www.nawigraz.at) in Graz.
 
-## Typst: `bhthesis.typ`
+Die beiden Vorlagen sind getrennt organisiert:
 
-In `bhthesis.typ` werden diverse styling und content functions (`kfuyellow`, `kfuemph`,
-`mathcol`, `todo`; Satz- und Definitions-Umgebungen `theorem`, `proposition`,
-`corollary`,  `lemma`, `proof`, `definition`, `remark`, `notation`, `example`),
-sowie die zentrale Funktion `thesistemplate` bereitgestellt.
+- `latex/` enthält die LaTeX-Klasse und ein Beispieldokument.
+- `typst/` enthält das Typst-Package und ein Beispieldokument.
+- `assets/` enthält gemeinsame Logos. In `latex/assets` und `typst/assets`
+  zeigen Symlinks auf diesen Ordner, damit die Beispiele direkt aus dem
+  jeweiligen Unterordner kompiliert werden können.
 
-Ein Beispieldokument ist in `thesis_template_typst.typ` zu finden.
+## Quick start: LaTeX
 
-### Optionen
+```bash
+cd latex
+latexmk -pdf thesis_template_latex.tex
+```
 
-- Wird `text.lang` auf `"de"` gesetzt, werden die Titel der Satz- und
-  Definitionsumgebungen (z.B. "Satz", "Beispiel") sowie die
-  Titelseiten-Textbausteine auf Deutsch umgestellt.
+Für eine eigene Arbeit kopiere den Ordner `latex/` inklusive `assets/` in dein
+Projekt und passe die Metadaten am Anfang von `thesis_template_latex.tex` an.
 
+Die Klasse `bhthesis.cls` stellt u.a. folgende Befehle bereit:
 
-## LaTeX: `bhthesis.cls`
+- `\reporttype{...}`
+- `\studname{...}`
+- `\degree{...}`
+- `\involvedpeople{...}`
+- `\university{...}`
+- `\universityname{...}`
+- `\fakultaetname{...}`
+- `\city{...}`
 
-Stellt die LaTeX-Klasse `bhthesis` zur Verfügung (Styling in
-`bhthesis-style.sty`). Siehe `thesis_template_latex.tex` für ein
-Beispieldokument.
+### Unterstützte Klassenoptionen
 
-
-### Unterstützte Flags
-
-- `withdegree`: Kontrolliert, ob "zur Erlangung des akademischen Grades\\ \degree"
-  eingeblendet wird. (Wird für Bachelorarbeiten nicht benötigt.)
-
-- `english`: Kontrolliert, ob die eingebauten Textbausteine auf Englisch
-  eingebunden werden (alternativ, wenn nicht gesetzt: auf Deutsch). Zusätzlich
-  werden die Namen von Satz- und Definitionsumgebungen lokalisiert, sofern
-  `babel` nicht bereits eine Sprache vorgibt.
+- `withdegree`: blendet den Block „zur Erlangung des akademischen Grades …“
+  ein. Für Bachelorarbeiten wird dieser Block oft nicht benötigt.
+- `english`: verwendet englische eingebaute Textbausteine. Theoremnamen werden
+  außerdem lokalisiert, sofern `babel` nicht bereits eine Sprache vorgibt.
 
 ### Styling-Anpassungen
 
-- Die Innenabstände der schattierten Satzumgebungen lassen sich über
-  `\setlength{\bhtheorempadding}{<Länge>}` steuern.
+Die Innenabstände der schattierten Satzumgebungen lassen sich über
+
+```tex
+\setlength{\bhtheorempadding}{<Länge>}
+```
+
+steuern.
+
+## Quick start: Typst
+
+```bash
+cd typst
+typst compile thesis_template_typst.typ
+```
+
+Für eine eigene Arbeit kopiere den Ordner `typst/` inklusive `assets/` in dein
+Projekt und passe die Metadaten im `#show: doc => thesistemplate(...)`-Block von
+`thesis_template_typst.typ` an.
+
+`bhthesis.typ` stellt Styling- und Content-Funktionen bereit:
+
+- Farben und Helfer: `kfuyellow`, `kfuemph`, `mathcol`, `todo`
+- Umgebungen: `theorem`, `proposition`, `corollary`, `lemma`, `proof`,
+  `definition`, `remark`, `notation`, `example`
+- zentrale Funktion: `thesistemplate`
+
+Wird `text.lang` auf `"de"` gesetzt, werden Satz- und Definitionsumgebungen
+sowie Titelseiten-Textbausteine auf Deutsch umgestellt.
+
+Wichtige optionale Argumente von `thesistemplate`:
+
+- `running_title: none`
+- `thesis_type: "Master's Thesis"`
+- `study_program: none`
+- `academic_degree: none`
+- `university: none`
+- `people: ()`
+- `city: "Graz"`
+- `date: datetime.today()`
+
+## Release-Zips
+
+Für Studierende sollen Releases zwei fertige ZIP-Dateien bereitstellen:
+
+- `bhthesis-latex-template.zip`
+- `bhthesis-typst-template.zip`
+
+Diese ZIPs enthalten jeweils eine selbständige Vorlage mit kopiertem `assets/`-
+Ordner statt Symlinks. Die Erstellung übernimmt die GitHub-Actions-Workflowdatei
+`.github/workflows/release.yml` bei Tags/Releases oder manuell via
+`workflow_dispatch`.

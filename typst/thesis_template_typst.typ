@@ -3,6 +3,7 @@
 #set text(lang: "en", hyphenate: true)
 #set par(justify: true, linebreaks: "optimized", leading: 0.95em)
 
+// === Change the following metadata for your thesis ===
 #show: doc => thesistemplate(
   title: [A tremendous thesis with a long\ title over multiple lines],
   running_title: "A tremendous thesis",
@@ -14,6 +15,7 @@
     Universität Graz / Naturwissenschaftliche Fakultät \
     Kooperationsverband NAWI Graz
   ],
+  city: "Graz",
   people: (
     thesisperson(
       role: "Advisor and Examiner",

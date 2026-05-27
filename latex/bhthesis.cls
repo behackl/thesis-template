@@ -1,5 +1,18 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{bhthesis-style}[2026/02/16 Thesis styling for bhthesis.]
+\ProvidesClass{bhthesis}[2026/02/16 Custom report class built on top of scrreprt.]
+
+\newif\if@english\@englishfalse
+\newif\if@withdegree\@withdegreefalse
+
+\DeclareOption{english}{\@englishtrue}
+\DeclareOption{withdegree}{\@withdegreetrue}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
+\ProcessOptions\relax
+
+\LoadClass{scrreprt}
+
+
+% Thesis styling and title-page implementation
 
 % Core packages
 \RequirePackage[utf8]{inputenc}

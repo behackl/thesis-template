@@ -1,0 +1,38 @@
+name: Build template ZIPs
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+  release:
+    types: [published]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install zip
+        run: sudo apt-get update && sudo apt-get install -y zip
+
+      - name: Build ZIP packages
+        run: make package
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bhthesis-template-zips
+          path: |
+            dist/bhthesis-latex-template.zip
+            dist/bhthesis-typst-template.zip
+
+      - name: Attach ZIPs to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/bhthesis-latex-template.zip
+            dist/bhthesis-typst-template.zip
