@@ -86,6 +86,8 @@
   author: str,
   academic_degree: none,
   study_program: none,
+  course: none,
+  instructor: none,
   university: none,
   people: (),
   city: "Graz",
@@ -123,15 +125,35 @@
     }
     align(center, text(size: 16pt, academic_degree))
   }
-  if study_program != none {
+  if course != none {
+    context {
+      if text.lang == "de" {
+        align(center, text("im Rahmen der Lehrveranstaltung"))
+      } else {
+        align(center, text("within the course"))
+      }
+    }
+    align(center, text(size: 16pt, course))
+  } else if study_program != none {
     context {
       if text.lang == "de" {
         align(center, text("im Rahmen des Studienprogramms"))
       } else {
-        align(center, text("within the study degree program"))
+        align(center, text("within the degree programme"))
       }
     }
     align(center, text(size: 16pt, study_program))
+  }
+  if instructor != none {
+    v(1em)
+    context {
+      if text.lang == "de" {
+        align(center, smallcaps("Lehrveranstaltungsleitung"))
+      } else {
+        align(center, smallcaps("Instructor"))
+      }
+    }
+    align(center, text(size: 14pt, instructor))
   }
   if university != none {
     v(1.5cm)
@@ -156,6 +178,8 @@
   thesis_type: "Master's Thesis",
   study_program: none,
   academic_degree: none,
+  course: none,
+  instructor: none,
   university: none,
   people: (),
   city: "Graz",
@@ -248,6 +272,8 @@
     thesis_type: thesis_type,
     author: author,
     study_program: study_program,
+    course: course,
+    instructor: instructor,
     academic_degree: academic_degree,
     university: university,
     people: people,

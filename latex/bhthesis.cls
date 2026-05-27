@@ -179,8 +179,15 @@
 \newcommand \universityname[1]{\gdef \@universityname{#1}}
 \gdef\@fakultaetname{}
 \newcommand \fakultaetname[1]{\gdef \@fakultaetname{#1}}
+\gdef\@contextlabel{}
+\newcommand \contextlabel[1]{\gdef \@contextlabel{#1}}
 \gdef\@studname{}
-\newcommand \studname[1]{\gdef \@studname{#1}}
+\newcommand \studname[1]{\gdef \@studname{#1}\gdef\@contextlabel{\if@english Degree Programme\else Studium\fi}}
+\newcommand \course[1]{\gdef \@studname{#1}\gdef\@contextlabel{\if@english within the course\else im Rahmen der Lehrveranstaltung\fi}}
+\gdef\@instructor{}
+\newcommand \instructor[1]{\gdef \@instructor{#1}}
+\gdef\@instructorlabel{}
+\newcommand \instructorlabel[1]{\gdef \@instructorlabel{#1}}
 \gdef\@degree{{\bfseries\color{red} degree}}
 \newcommand \degree[1]{\gdef \@degree{#1}}
 \renewcommand{\and}{$\;\cdot\;$}
@@ -208,6 +215,10 @@
   \global\let\@university\@empty
   \global\let\@universityname\@empty
   \global\let\@institute\@empty
+  \global\let\@contextlabel\@empty
+  \global\let\@studname\@empty
+  \global\let\@instructor\@empty
+  \global\let\@instructorlabel\@empty
   \global\let\@city\@empty
   \global\let\@version\@empty
   \global\let\@uppertitleback\@empty
@@ -220,6 +231,11 @@
   \global\let\university\@empty
   \global\let\universityname\@empty
   \global\let\institute\@empty
+  \global\let\contextlabel\@empty
+  \global\let\studname\@empty
+  \global\let\course\@empty
+  \global\let\instructor\@empty
+  \global\let\instructorlabel\@empty
   \global\let\city\@empty
   \global\let\version\@empty
   \global\let\and\relax}
@@ -269,9 +285,16 @@
       \fi
       \@degree
     \else\fi
-    \vfill
-    {\textsc{\if@english Degree Programme\else Studium\fi}}\\[0.25em]
-    {\Large\@studname}
+    \ifx\@studname\@empty\else
+      \vfill
+      {\textsc{\@contextlabel}}\\[0.25em]
+      {\Large\@studname}
+    \fi
+    \ifx\@instructor\@empty\else
+      \vskip 1em
+      {\textsc{\ifx\@instructorlabel\@empty\if@english Instructor\else Lehrveranstaltungsleitung\fi\else\@instructorlabel\fi}}\\[0.25em]
+      {\Large\@instructor}
+    \fi
     \vfill
     \@universityname \\[0.2em]
     \@fakultaetname

@@ -3,10 +3,14 @@
 LaTeX- und Typst-Vorlagen für akademische Abschlussarbeiten, insbesondere im
 Rahmen vom [NAWI-Verband](https://www.nawigraz.at) in Graz.
 
+Fertige ZIP-Dateien für Studierende werden auf der
+[Releases-Seite](https://github.com/behackl/thesis-template/releases)
+bereitgestellt.
+
 Die beiden Vorlagen sind getrennt organisiert:
 
-- `latex/` enthält die LaTeX-Klasse und ein Beispieldokument.
-- `typst/` enthält das Typst-Package und ein Beispieldokument.
+- `latex/` enthält die LaTeX-Klasse, ein Thesis-Beispiel und ein Seminararbeits-Beispiel.
+- `typst/` enthält das Typst-Package, ein Thesis-Beispiel und ein Seminararbeits-Beispiel.
 - `assets/` enthält gemeinsame Logos. In `latex/assets` und `typst/assets`
   zeigen Symlinks auf diesen Ordner, damit die Beispiele direkt aus dem
   jeweiligen Unterordner kompiliert werden können.
@@ -16,6 +20,12 @@ Die beiden Vorlagen sind getrennt organisiert:
 ```bash
 cd latex
 latexmk -pdf thesis_template_latex.tex
+```
+
+Das Seminararbeits-Beispiel kann analog kompiliert werden:
+
+```bash
+latexmk -pdf seminar_template_latex.tex
 ```
 
 Für eine eigene Arbeit kopiere den Ordner `latex/` inklusive `assets/` in dein
@@ -35,6 +45,8 @@ Die Klasse `bhthesis.cls` stellt u.a. folgende Befehle bereit:
 - `\universityname{...}`
 - `\fakultaetname{...}`
 - `\city{...}`
+- `\course{...}` für Seminararbeiten
+- `\instructor{...}` für Seminararbeiten
 
 ### Unterstützte Klassenoptionen
 
@@ -69,11 +81,23 @@ Die Innenabstände der schattierten Satzumgebungen lassen sich über
 
 steuern.
 
+### Seminararbeiten
+
+Für Seminararbeiten gibt es `seminar_template_latex.tex`. Statt `withdegree`,
+`\studname` und `\degree` werden dort `\course{...}` und optional
+`\instructor{...}` verwendet.
+
 ## Quick start: Typst
 
 ```bash
 cd typst
 typst compile thesis_template_typst.typ
+```
+
+Das Seminararbeits-Beispiel kann analog kompiliert werden:
+
+```bash
+typst compile seminar_template_typst.typ
 ```
 
 Für eine eigene Arbeit kopiere den Ordner `typst/` inklusive `assets/` in dein
@@ -94,6 +118,9 @@ Das Beispieldokument zeigt außerdem Typst-Codeblöcke mit hellgrauem Hintergrun
 sowie Literaturverweise über `#bibliography("references.bib")`. Die Datei
 `references.bib` enthält einen Beispiel-Eintrag.
 
+Für Seminararbeiten gibt es `seminar_template_typst.typ`. Dort werden `course`
+und `instructor` verwendet.
+
 Wichtige optionale Argumente von `thesistemplate`:
 
 - `running_title: none`
@@ -104,15 +131,19 @@ Wichtige optionale Argumente von `thesistemplate`:
 - `people: ()`
 - `city: "Graz"`
 - `date: datetime.today()`
+- `course: none`
+- `instructor: none`
 
 ## Release-Zips
 
-Für Studierende sollen Releases zwei fertige ZIP-Dateien bereitstellen:
+Auf der [Releases-Seite](https://github.com/behackl/thesis-template/releases)
+werden zwei fertige ZIP-Dateien für Studierende bereitgestellt:
 
 - `bhthesis-latex-template.zip`
 - `bhthesis-typst-template.zip`
 
 Diese ZIPs enthalten jeweils eine selbständige Vorlage mit kopiertem `assets/`-
-Ordner statt Symlinks und der jeweiligen `references.bib`. Die Erstellung übernimmt die GitHub-Actions-Workflowdatei
+Ordner statt Symlinks, der jeweiligen `references.bib` sowie dem Thesis- und dem
+Seminararbeits-Beispiel. Die Erstellung übernimmt die GitHub-Actions-Workflowdatei
 `.github/workflows/release.yml` bei Tags/Releases oder manuell via
 `workflow_dispatch`.
